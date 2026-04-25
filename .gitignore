@@ -1,1 +1,20 @@
-node_modules
+# In c:\Users\matth\Downloads\Code Files\Junior Academy\.gitignore
+
+# Environment variables — NEVER upload these
+.env
+backend/.env
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Python virtual environment
+env/
+backend/env/
+
+# Build files
+frontend/build/
+
+# OS files
+.DS_Store
+Thumbs.db
