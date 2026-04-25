@@ -4,6 +4,8 @@ import { doc, getDoc, getDocs, collection, query, where, orderBy } from "firebas
 import Navbar from "./Navbar";
 
 function FinancialHealth({ user, onBack, onSignOut, onNavigate }) {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState(null);
   const [accountData, setAccountData] = useState(null);
@@ -198,7 +200,7 @@ BOTTOM LINE:
 One clear sentence on whether they are at risk and why.
       `;
 
-      const response = await fetch("http://localhost:5000/analyze/health", {
+      const response = await fetch(`${API_URL}/analyze/health`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),

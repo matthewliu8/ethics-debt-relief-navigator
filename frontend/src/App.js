@@ -10,7 +10,10 @@ import AccountInfo from "./AccountInfo";
 import FinancialHealth from "./FinancialHealth";
 import Navbar from "./Navbar";
 
+
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
   const [text, setText] = useState("")
   const [summary, setSummary] = useState("")
   const [file, setFile] = useState(null)
@@ -247,8 +250,8 @@ function App() {
     formData.append("file", file);
 
     const url = mode === "pdf"
-      ? "http://localhost:5000/summarize/pdf"
-      : "http://localhost:5000/summarize/image";
+      ? `${API_URL}/summarize/pdf`
+      : `${API_URL}/summarize/image`;
 
     const res = await axios.post(url, formData, {
       headers: { "Content-Type": "multipart/form-data" },
