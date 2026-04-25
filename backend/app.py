@@ -3,6 +3,7 @@
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import re
 #import openai
 import fitz
 from PIL import Image, ImageEnhance, ImageFilter
@@ -10,7 +11,10 @@ import pytesseract
 from dotenv import load_dotenv
 import os
 from groq import Groq
-
+import platform
+if platform.system() == "Windows":
+    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
 import platform
@@ -20,7 +24,12 @@ if platform.system() == "Windows":
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://ethics-debt-relief-navigator-qmgu.vercel.app"]}})
+CORS(app, resources={r"/*": {"origins": [
+    "http://localhost:3000",
+    "https://ethics-debt-relief-navigator-qmgu.vercel.app",
+    "https://ethics-debt-relief-navigator-qmgu-7wh7vn9pf.vercel.app",
+    re.compile(r"https://ethics-debt-relief-navigator.*\.vercel\.app")
+]}})
 
 def get_summary(prompt):
     response = client.chat.completions.create(

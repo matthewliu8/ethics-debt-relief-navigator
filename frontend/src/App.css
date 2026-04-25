@@ -1,3 +1,7 @@
+html {
+  font-size: 85%;
+}
+
 /* Signed out page ----------------------------------------------------- */
 .clarity-hero-signedout {
   background: linear-gradient(to bottom, white, #dde8ff 100%);
