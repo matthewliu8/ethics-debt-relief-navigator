@@ -4,7 +4,6 @@ import { auth, provider, signInWithPopup, signOut } from "./firebase";
 import { db } from "./firebase";
 import { collection, addDoc, getDocs, query, where, orderBy, serverTimestamp, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 
-import logo from './logo.svg';
 import './App.css';
 import AccountInfo from "./AccountInfo";
 import FinancialHealth from "./FinancialHealth";
@@ -14,7 +13,6 @@ import Navbar from "./Navbar";
 function App() {
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-  const [text, setText] = useState("")
   const [summary, setSummary] = useState("")
   const [file, setFile] = useState(null)
   const [mode, setMode] = useState('text')
@@ -209,14 +207,7 @@ function App() {
     return sections;
   };
 
-  const formatBullets = (text) => {
-    if (!text) return [];
 
-    return text
-      .split("-")
-      .map(item => item.trim())
-      .filter(item => item.length > 0);
-    };
 
   //Summarizing
   const handleSummarize = async () => {
@@ -259,7 +250,6 @@ function App() {
 
     if (res && res.data.summary) {
       const newSummary = res.data.summary;
-      const parsedSummary = parseSummary(newSummary);
 
       setSummary(String(newSummary));
       setLoading(false);
