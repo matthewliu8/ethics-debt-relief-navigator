@@ -327,8 +327,8 @@ function App() {
     return (
       <div className="auth-container">
         <div className="auth-card">
-          <h1>📄 Bill Summarizer</h1>
-          <p>Upload bills. Get instant insights.</p>
+          <h1>📄 Clarity Finance</h1>
+          <p>Ethics Debt-Relief-Navigator. Upload bills. Get instant insights.</p>
 
           <button className="google-btn" onClick={handleGoogleSignIn}>
             <img
