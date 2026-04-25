@@ -18,7 +18,7 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://ethics-debt-relief-navigator-qmgu.vercel.app/"]}})
+CORS(app, resources={r"/*": {"origins": ["http://localhost:3000", "https://ethics-debt-relief-navigator-qmgu.vercel.app"]}})
 
 def get_summary(prompt):
     response = client.chat.completions.create(
