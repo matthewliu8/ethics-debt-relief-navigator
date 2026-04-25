@@ -324,20 +324,56 @@ function App() {
 
   //not signed in
   if (!user) {
-    return (
-      <div className="auth-container">
-        <div className="auth-card">
-          <h1>📄 Clarity Finance</h1>
-          <p>Ethics Debt-Relief-Navigator. Upload bills. Get instant insights.</p>
+  return (
+    <div className="clarity-app">
+
+        <nav className="clarity-nav">
+          <span className="clarity-logo">CLARITY FINANCE</span>
+        </nav>
+
+        <div className="clarity-hero-signedout">
+          <p className="clarity-welcome">Your AI-Powered Financial Assistant</p>
+          <h1 className="clarity-headline">Summarize Your Bills Now</h1>
+          <p className="clarity-hero-sub">
+            Ethics Debt-Relief-Navigator: Upload bills, track due dates, and analyze your financial health — all in one place.
+          </p>
 
           <button className="google-btn" onClick={handleGoogleSignIn}>
             <img
               src="https://developers.google.com/identity/images/g-logo.png"
               alt="google"
+              width="20"
             />
             Sign in with Google
           </button>
         </div>
+
+      
+        <div className="clarity-section">
+          <div className="signin-features">
+            <div className="signin-feature-card">
+              <span className="signin-feature-icon">📄</span>
+              <h3>Bill Summarizer</h3>
+              <p>Upload PDFs or images of your bills and get instant AI-powered summaries.</p>
+            </div>
+            <div className="signin-feature-card">
+              <span className="signin-feature-icon">📅</span>
+              <h3>Due Date Tracker</h3>
+              <p>Never miss a payment — we automatically detect and track your bill due dates.</p>
+            </div>
+            <div className="signin-feature-card">
+              <span className="signin-feature-icon">💊</span>
+              <h3>Financial Health Check</h3>
+              <p>Get a personalized analysis of your financial situation and risk level.</p>
+            </div>
+            <div className="signin-feature-card">
+              <span className="signin-feature-icon">💳</span>
+              <h3>Debt Strategy</h3>
+              <p>Receive a tailored debt repayment plan using avalanche, snowball, or other methods.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     );
   }
@@ -451,9 +487,12 @@ const handleDeleteDueDate = async (id) => {
     <Navbar user={user} onSignOut={handleSignOut} onNavigate={handleNavigate} />
     
     {/* hero */}
-    <div className="clarity-hero">
+    <div className="clarity-hero-signedin">
       <p className="clarity-welcome">Welcome, {user.displayName}</p>
       <h1 className="clarity-headline">Summarize Your Bills Now</h1>
+      <p className="clarity-hero-sub">
+            Ethics Debt-Relief-Navigator: Upload bills, track due dates, and analyze your financial health — all in one place.
+          </p>
       <div className="clarity-upload-btns">
         <button
           className={`upload-btn ${mode === "pdf" ? "upload-btn-active" : ""}`}

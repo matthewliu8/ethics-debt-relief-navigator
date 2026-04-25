@@ -1,63 +1,102 @@
 /* Signed out page ----------------------------------------------------- */
-.auth-container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #3b82f6, white);
-}
-
-.auth-card {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  width: 500px;
+.clarity-hero-signedout {
+  background: linear-gradient(to bottom, white, #dde8ff 100%);
+  padding: 120px 48px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid #e8e8e8;
 }
 
-.auth-card h1 {
-  margin-bottom: 10px;
-  font-size: 26px;
+.clarity-hero-signedout .clarity-welcome {
+  font-size: 1.2rem;
+  color: #616772;
+  margin-bottom: 18px;
 }
 
-.auth-card p {
-  margin-bottom: 25px;
-  color: #6b7280;
+.clarity-hero-signedout .clarity-headline {
+  font-size: 3.8rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
 }
 
-/* Google Button */
+.clarity-hero-sub {
+  font-size: 1.1rem;
+  color: #31343a;
+  margin-bottom: 36px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
 .google-btn {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #ffffff;
+  color: #1a1a2e;
+  border: 2px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 16px 40px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-
-  transition: all 0.2s ease;
-}
-
-.google-btn img {
-  width: 18px;
+  width: auto;
+  margin: 0 auto;
+  transition: all 0.2s;
 }
 
 .google-btn:hover {
-  background: #f9fafb;
+  border-color: #1a1a2e;
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.google-btn:active {
-  transform: scale(0.98);
+/* ── Feature Cards — 2x2 grid ── */
+.signin-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 40px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.signin-feature-card {
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 16px;
+  padding: 40px 32px; 
+  text-align: center;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
+.signin-feature-card:hover {
+  border-color: #6464e9;
+  box-shadow: 0 4px 12px rgba(100, 100, 233, 0.1);
+}
+
+.signin-feature-icon {
+  font-size: 2.8rem;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.signin-feature-card h3 {
+  font-size: 1.1rem; 
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.signin-feature-card p {
+  font-size: 0.92rem; 
+  color: #6b7280;
+  line-height: 1.7;
+}
 /*---------------------------------------------------------------*/
 
 * {
@@ -85,7 +124,7 @@ body {
 }
 
 .clarity-logo {
-  font-size: 1rem;
+  font-size: 1.33rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   color: #1a1a2e;
@@ -100,7 +139,7 @@ body {
 .nav-link-btn {
   background: none;
   border: none;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #4a4a6a;
   cursor: pointer;
   padding: 0;
@@ -125,39 +164,49 @@ body {
   background: none;
 }
 
-/* hero */
-.clarity-hero {
+/* hero signedin-------------------------------- */
+.clarity-hero-signedin {
   background: linear-gradient(to bottom, white, #dde8ff 100%);
-  padding: 60px 48px;
+  padding: 120px 48px;
   text-align: center;
   border-bottom: 1px solid #e8e8e8;
 }
 
-.clarity-welcome {
-  font-size: 0.95rem;
+.clarity-hero-signedin .clarity-welcome {
+  font-size: 1.2rem;
   color: #616772;
-  margin-bottom: 12px;
+  margin-bottom: 18px;
 }
 
-.clarity-headline {
-  font-size: 2.4rem;
+.clarity-hero-signedin .clarity-headline {
+  font-size: 3.8rem;
   font-weight: 800;
   color: #1a1a2e;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
   letter-spacing: -0.5px;
 }
 
-.clarity-upload-btns {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
+.clarity-hero-sub {
+  font-size: 1.1rem;
+  color: #31343a;
+  margin-bottom: 36px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
 }
 
-.upload-btn {
-  padding: 10px 28px;
-  border-radius: 8px;
-  font-size: 0.95rem;
+.clarity-hero-signedin .clarity-upload-btns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.clarity-hero-signedin .upload-btn {
+  padding: 14px 40px;
+  border-radius: 10px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
@@ -169,35 +218,36 @@ body {
   display: inline-block;
 }
 
-.upload-btn:hover {
+.clarity-hero-signedin .upload-btn:hover {
   border-color: #6464e9;
   color: #000000;
 }
 
-.upload-btn-active {
+.clarity-hero-signedin .upload-btn-active {
   background-color: #6464e9;
   color: #ffffff;
   border-color: #6464e9;
 }
 
-.upload-btn-active:hover {
-  background-color: #ffffff;
+.clarity-hero-signedin .upload-btn-active:hover {
+  background-color: #5252d4;
+  color: #ffffff;
 }
 
-.clarity-file-input {
+.clarity-hero-signedin .clarity-file-input {
   display: block;
-  margin: 0 auto 20px;
-  font-size: 0.9rem;
+  margin: 0 auto 28px;
+  font-size: 1rem;
   color: #6b7280;
 }
 
-.clarity-summarize-btn {
-  padding: 12px 40px;
+.clarity-hero-signedin .clarity-summarize-btn {
+  padding: 16px 52px;
   background-color: #1a1a2e;
   color: #ffffff;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -206,11 +256,11 @@ body {
   display: inline-block;
 }
 
-.clarity-summarize-btn:hover {
+.clarity-hero-signedin .clarity-summarize-btn:hover {
   background-color: #2d2d4e;
 }
 
-.clarity-summarize-btn:disabled {
+.clarity-hero-signedin .clarity-summarize-btn:disabled {
   background-color: #a0aec0;
   cursor: not-allowed;
 }
@@ -223,7 +273,7 @@ body {
 }
 
 .clarity-section-title {
-  font-size: 1.4rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1a1a2e;
   margin-bottom: 20px;
@@ -231,7 +281,7 @@ body {
 
 .clarity-empty {
   color: #a0aec0;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 /* due date cards */
