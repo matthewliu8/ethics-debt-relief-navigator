@@ -4,9 +4,8 @@ services:
     runtime: python
     rootDir: backend
     buildCommand: apt-get install -y tesseract-ocr && pip install -r requirements.txt
+    buildCommand: |
+      apt-get update
+      apt-get install -y tesseract-ocr
+      pip install -r requirements.txt
     startCommand: python app.py
-    envVars:
-      - key: GROQ_API_KEY
-        sync: false
-      - key: GEMINI_API_KEY
-        sync: false

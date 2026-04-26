@@ -377,7 +377,23 @@ function App() {
       </div>
     );
   }
-  
+  //delete due date
+const handleDeleteDueDate = async (id) => {
+  const confirmed = window.confirm("Remove this due date from your list?");
+  if (!confirmed) return;
+
+  try {
+    const docRef = doc(db, "accountInfo", user.uid);
+    const docSnap = await getDoc(docRef);
+    const existing = docSnap.exists() ? docSnap.data() : {};
+    const updatedDates = (existing.dueDates || []).filter((d) => d.id !== id);
+
+    await setDoc(docRef, { ...existing, dueDates: updatedDates });
+    setDueDates((prev) => prev.filter((d) => d.id !== id));
+  } catch (err) {
+    console.error("Failed to delete due date:", err);
+  }
+};
   //financial health
   if (showFinancialHealth) {
   return (
@@ -462,23 +478,7 @@ if (showAccountInfo) {
     />
   );
 }
-//delete due date
-const handleDeleteDueDate = async (id) => {
-  const confirmed = window.confirm("Remove this due date from your list?");
-  if (!confirmed) return;
 
-  try {
-    const docRef = doc(db, "accountInfo", user.uid);
-    const docSnap = await getDoc(docRef);
-    const existing = docSnap.exists() ? docSnap.data() : {};
-    const updatedDates = (existing.dueDates || []).filter((d) => d.id !== id);
-
-    await setDoc(docRef, { ...existing, dueDates: updatedDates });
-    setDueDates((prev) => prev.filter((d) => d.id !== id));
-  } catch (err) {
-    console.error("Failed to delete due date:", err);
-  }
-};
   //signed in
   return (
   <div className="clarity-app">
@@ -491,7 +491,7 @@ const handleDeleteDueDate = async (id) => {
       <p className="clarity-welcome">Welcome, {user.displayName}</p>
       <h1 className="clarity-headline">Summarize Your Bills Now</h1>
       <p className="clarity-hero-sub">
-            Ethics Debt-Relief-Navigator: Upload bills, track due dates, and analyze your financial health — all in one place.
+            Ethics Debt-Relief Navigator: Upload bills, track due dates, and analyze your financial health — all in one place.
           </p>
       <div className="clarity-upload-btns">
         <button

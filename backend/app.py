@@ -16,9 +16,7 @@ if platform.system() == "Windows":
 
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
-import platform
-if platform.system() == "Windows":
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
