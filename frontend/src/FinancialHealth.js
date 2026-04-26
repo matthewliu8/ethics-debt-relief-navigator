@@ -174,14 +174,14 @@ RECOMMENDATIONS:
 - Tailor to their demographic situation
 
 DEBT STRATEGY:
-Based on their total debt of $${totalDebt.toFixed(2)}, monthly debt payment of $${debtPayment.toFixed(2)}, monthly income of $${income.toFixed(2)}, and remaining budget of $${remaining.toFixed(2)}, recommend ONE of these strategies:
+${totalDebt > 0 ? 
+`Based on their total debt of $${totalDebt.toFixed(2)}, monthly debt payment of $${debtPayment.toFixed(2)}, monthly income of $${income.toFixed(2)}, and remaining budget of $${remaining.toFixed(2)}, recommend ONE of these strategies:
 - Avalanche Method (highest interest first)
 - Snowball Method (lowest balance first)
 - Debt Consolidation Loan
 - Balance Transfer Credit Card
-- No strategy needed
 
-Follow this exact format for the debt strategy section:
+Follow this exact format:
 
 RECOMMENDED: [strategy name]
 
@@ -194,10 +194,24 @@ STEPS:
 - Step 4: [specific fourth action]
 - Step 5: [specific fifth action]
 
-GOAL: One sentence stating what they will achieve and approximately when if they follow this plan.
+GOAL: One sentence stating what they will achieve and approximately when if they follow this plan.`
+:
+`This user has no debt. Instead of a debt strategy, provide savings and wealth building advice.
 
-BOTTOM LINE:
-One clear sentence on whether they are at risk and why.
+Follow this exact format:
+
+RECOMMENDED: No Debt Strategy Needed
+
+WHY: 2 sentences congratulating them and explaining the opportunity they have without debt obligations.
+
+STEPS:
+- Step 1: [specific savings or investment action with dollar amounts]
+- Step 2: [specific second action]
+- Step 3: [specific third action]
+- Step 4: [specific fourth action]
+- Step 5: [specific fifth action]
+
+GOAL: One sentence stating what they can achieve financially by following this savings plan. `}
       `;
 
       const response = await fetch(`${API_URL}/analyze/health`, {
@@ -361,19 +375,25 @@ One clear sentence on whether they are at risk and why.
 
                 {/* Strategy Pills */}
                 <div className="health-strategy-pills">
-                  {["Avalanche Method", "Snowball Method", "Debt Consolidation Loan", "Balance Transfer Credit Card"].map((s) => (
-                  <span
-                    key={s}
-                    className={`health-strategy-pill ${
-                      analysis.debtStrategy.recommended?.toLowerCase().includes(s.toLowerCase().split(" ")[0])
-                          ? "health-strategy-pill-active"
-                          : ""
+                  {totalDebt > 0 ? (
+                    ["Avalanche Method", "Snowball Method", "Debt Consolidation Loan", "Balance Transfer Credit Card"].map((s) => (
+                      <span
+                        key={s}
+                        className={`health-strategy-pill ${
+                          analysis.debtStrategy.recommended?.toLowerCase().includes(s.toLowerCase().split(" ")[0])
+                            ? "health-strategy-pill-active"
+                            : ""
                         }`}
-                    >
-                      {s}
-                  </span>
-                  ))}
-              </div>
+                      >
+                        {s}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="health-strategy-pill health-strategy-pill-active">
+                      💰 Focus on Savings & Wealth Building
+                    </span>
+                  )}
+                </div>
 
                 {/* why */}
                 {analysis.debtStrategy.why && (
