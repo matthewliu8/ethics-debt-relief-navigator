@@ -11,6 +11,7 @@ function FinancialHealth({ user, onBack, onSignOut, onNavigate }) {
   const [accountData, setAccountData] = useState(null);
   const [billHistory, setBillHistory] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [totalDebt, setTotalDebt] = useState(0);
 
   useEffect(() => {
     const loadData = async () => {
@@ -116,6 +117,7 @@ function FinancialHealth({ user, onBack, onSignOut, onNavigate }) {
         .map(v => parseFloat(v) || 0).reduce((acc, v) => acc + v, 0);
       const debtPayment = parseFloat(a.monthlyDebtPayment) || 0;
       const totalDebt = parseFloat(a.totalDebt) || 0;
+      setTotalDebt(totalDebt);
       const totalExpenses = totalFixed + totalVariable + debtPayment;
       const remaining = income - totalExpenses;
       const dti = income > 0 ? ((debtPayment / income) * 100).toFixed(1) : "N/A";
@@ -371,7 +373,9 @@ GOAL: One sentence stating what they can achieve financially by following this s
             {/* Debt strategy */}
             {analysis.debtStrategy?.recommended && (
               <div className="health-card health-card-purple">
-                <div className="health-card-title">💳 Recommended Debt Strategy</div>
+                <div className="health-card-title">
+                  {totalDebt > 0 ? "💳 Recommended Debt Strategy" : "💰 Savings & Wealth Building"}
+                </div>
 
                 {/* Strategy Pills */}
                 <div className="health-strategy-pills">
@@ -381,8 +385,8 @@ GOAL: One sentence stating what they can achieve financially by following this s
                         key={s}
                         className={`health-strategy-pill ${
                           analysis.debtStrategy.recommended?.toLowerCase().includes(s.toLowerCase().split(" ")[0])
-                            ? "health-strategy-pill-active"
-                            : ""
+                          ? "health-strategy-pill-active"
+                          : ""
                         }`}
                       >
                         {s}
