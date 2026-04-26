@@ -13,6 +13,7 @@ from groq import Groq
 import platform
 if platform.system() == "Windows":
     pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import requests as req 
 
 load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
@@ -108,36 +109,52 @@ def summarize_image():
             return jsonify({"error": "No file uploaded"}), 400
 
         file = request.files['file']
-        image = Image.open(file.stream)
-        image = image.convert("RGB")
+        file_bytes = file.read()
+        filename = file.filename.lower()
 
-        width, height = image.size
-        if width < 1000:
-            scale = 1000 / width
-            image = image.resize(
-                (int(width * scale), int(height * scale)),
-                Image.LANCZOS
+        def try_ocr(engine, file_bytes, filename, content_type):
+            ocr_response = req.post(
+                "https://api.ocr.space/parse/image",
+                files={"file": (filename, file_bytes, content_type)},
+                data={
+                    "apikey": os.getenv("OCR_API_KEY"),
+                    "language": "eng",
+                    "isOverlayRequired": False,
+                    "OCREngine": engine,
+                    "scale": True,             
+                    "isTable": True,           
+                    "detectOrientation": True,  
+                    "filetype": "AUTO",
+                }
             )
-            
-        image = image.convert("L")
+            result = ocr_response.json()
+            if result.get("IsErroredOnProcessing"):
+                return ""
+            return " ".join([
+                r.get("ParsedText", "")
+                for r in result.get("ParsedResults", [])
+            ]).strip()
 
-        from PIL import ImageEnhance, ImageFilter
-        enhancer = ImageEnhance.Contrast(image)
-        image = enhancer.enhance(2.5)
+        text = try_ocr(2, file_bytes, filename, file.content_type)
 
-        image = image.filter(ImageFilter.SHARPEN)
-        image = image.filter(ImageFilter.SHARPEN) #2x effect
+        if not text:
+            print("Engine 2 returned no text, trying Engine 1...")
+            text = try_ocr(1, file_bytes, filename, file.content_type)
 
-        custom_config = r'--oem 3 --psm 6'
-        text = pytesseract.image_to_string(image, config=custom_config)
-
-        print(f"OCR extracted {len(text)} characters")  
-        print(f"First 200 chars: {text[:200]}")          
+        print(f"OCR extracted {len(text)} characters")
+        print(f"First 200 chars: {text[:200]}")
 
         if not text.strip():
             return jsonify({"error": "No readable text found in image. Try uploading a clearer photo or use PDF instead."}), 400
 
-        prompt = f"Summarize the following bill:\n{text}"
+        text = text.replace("|", "l")        
+        text = text.replace("—", "-")       
+        text = "\n".join([                    
+            line for line in text.splitlines()
+            if line.strip()
+        ])
+
+        prompt = f"Summarize the following bill. Note that this text was extracted via OCR from an image so there may be minor character errors — please interpret them intelligently:\n{text}"
         summary = get_summary(prompt)
         return jsonify({"summary": summary})
 
